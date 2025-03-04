@@ -1,0 +1,23 @@
+function criarFormulario() {
+  var form = FormApp.create('Meu Formulário Automático');
+  
+  var perguntasRespostas = {
+    "Qual é o seu nome?": "",
+    "Qual sua linguagem de programação favorita?": ["Python", "Java", "C++", "JavaScript"],
+    "Qual a sua experiência com programação?": ["Iniciante", "Intermediário", "Avançado"]
+  };
+
+  for (var pergunta in perguntasRespostas) {
+    var respostas = perguntasRespostas[pergunta];
+
+    if (Array.isArray(respostas)) {
+      var item = form.addMultipleChoiceItem();
+      item.setTitle(pergunta);
+      item.setChoices(respostas.map(r => item.createChoice(r)));
+    } else {
+      form.addTextItem().setTitle(pergunta);
+    }
+  }
+
+  Logger.log("Formulário criado: " + form.getPublishedUrl());
+}
